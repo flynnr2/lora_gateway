@@ -155,6 +155,7 @@ void sx125x_write(uint8_t channel, uint8_t addr, uint8_t data) {
     lgw_reg_w(reg_add, 0x80 | addr); /* MSB at 1 for write operation */
     lgw_reg_w(reg_dat, data);
     lgw_reg_w(reg_cs, 1);
+    wait_ms(1); /* Diagnostic: allow internal radio SPI completion. */
     lgw_reg_w(reg_cs, 0);
 
     return;
@@ -202,6 +203,7 @@ uint8_t sx125x_read(uint8_t channel, uint8_t addr) {
     lgw_reg_w(reg_add, addr); /* MSB at 0 for read operation */
     lgw_reg_w(reg_dat, 0);
     lgw_reg_w(reg_cs, 1);
+    wait_ms(1); /* Diagnostic: allow internal radio SPI completion. */
     lgw_reg_w(reg_cs, 0);
     lgw_reg_r(reg_rb, &read_value);
 
