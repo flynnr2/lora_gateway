@@ -806,6 +806,7 @@ int lgw_start(void) {
     lgw_reg_w(LGW_FORCE_HOST_RADIO_CTRL, 0); /* gives to AGC MCU the control of the radios */
     lgw_reg_w(LGW_RADIO_SELECT, cal_cmd); /* send calibration configuration word */
     lgw_reg_w(LGW_MCU_RST_1, 0);
+    wait_ms(10); /* Diagnostic: allow MCU firmware to initialize before version read. */
 
     /* Check firmware version */
     lgw_reg_w(LGW_DBG_AGC_MCU_RAM_ADDR, FW_VERSION_ADDR);
@@ -988,6 +989,7 @@ int lgw_start(void) {
     lgw_reg_w(LGW_RADIO_SELECT, 0); /* MUST not be = to 1 or 2 at firmware init */
     lgw_reg_w(LGW_MCU_RST_0, 0);
     lgw_reg_w(LGW_MCU_RST_1, 0);
+    wait_ms(10); /* Diagnostic: allow MCU firmware to initialize before version read. */
 
     /* Check firmware version */
     lgw_reg_w(LGW_DBG_AGC_MCU_RAM_ADDR, FW_VERSION_ADDR);
